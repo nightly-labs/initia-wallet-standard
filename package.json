@@ -1,0 +1,51 @@
+{
+  "name": "@initia/wallet-standard",
+  "description": "Initia wallet standard",
+  "version": "0.0.1",
+  "license": "Apache-2.0",
+  "main": "dist/common/index.js",
+  "module": "dist/esm/index.mjs",
+  "types": "./dist/common/index.d.ts",
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "require": {
+        "types": "./dist/common/index.d.ts",
+        "default": "./dist/common/index.js"
+      },
+      "import": {
+        "types": "./dist/esm/index.d.mts",
+        "default": "./dist/esm/index.mjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "clean": "rm -rf tsconfig.tsbuildinfo ./dist",
+    "dev": "pnpm build --watch",
+    "build": "pnpm build:claer && tsup",
+    "build:claer": "rm -rf ./dist",
+    "build:tsup": "tsup ./src/index.ts --format esm,cjs --sourcemap",
+    "build:types": "tsc --build",
+    "prepublishOnly": "pnpm build",
+    "prettier:check": "prettier -c --ignore-unknown .",
+    "prettier:fix": "prettier -w --ignore-unknown ."
+  },
+  "peerDependencies": {
+    "@wallet-standard/core": "^1.0.3",
+    "@initia/initia-registry-types": "^0.0.20",
+    "@cosmjs/proto-signing": "^0.32.4",
+    "@cosmjs/amino": "^0.32.4"
+  },
+  "devDependencies": {
+    "prettier": "^2.5.1",
+    "tsup": "^7.1.0",
+    "typescript": "^5.1.6"
+  },
+  "packageManager": "pnpm@9.3.0+sha512.ee7b93e0c2bd11409c6424f92b866f31d3ea1bef5fbe47d3c7500cdc3c9668833d2e55681ad66df5b640c61fa9dc25d546efa54d76d7f8bf54b13614ac293631"
+}
